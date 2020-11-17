@@ -21,6 +21,9 @@ def check_win(mas, sign):
 
 
 pygame.init()
+
+k = 0
+l = 0
 size_block = 100
 margin = 15
 width = height = size_block * 3 + margin * 4
@@ -79,14 +82,17 @@ while True:
             game_over = check_win(mas, 'x')
         else:
             game_over = check_win(mas, 'o')
+        if game_over == 'x':
+            k += 1
+        elif game_over == 'o':
+            l += 1
 
         if game_over:
             screen.fill(black)
             font = pygame.font.SysFont('times new roman', 80)
-            text1 = font.render(game_over, True, white)
+            text1 = font.render(str(k) + str(l) + game_over, True, white)
             text_rect = text1.get_rect()
-            text_x = text1.get_width() / 2 - text_rect.width / 2
-            text_y = text1.get_height() / 2 - text_rect.height / 2
+            text_x = screen.get_width() / 2 - text_rect.width / 2
+            text_y = screen.get_height() / 2 - text_rect.height / 2
             screen.blit(text1, [text_x, text_y])
         pygame.display.update()
-root.mainloop()
