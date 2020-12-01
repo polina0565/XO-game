@@ -4,19 +4,17 @@ import sys
 
 def check_win(mas, sign):
     zeroes = 0
-    for ROW in mas:
-        zeroes += ROW.count(0)
-        if ROW.count(sign) == 3:
-            return sign
+    for ROW in range(6):
+        for COL in range(1,5):
+            print (COL, ROW)
+            if mas[ROW][COL-1] == sign and mas[ROW][COL] == sign and mas[ROW][COL+1] == sign:
+                return sign
     for COL in range(6):
-        if mas[0][COL] == sign and mas[1][COL] == sign and mas[2][COL] == sign:
-            return sign
-        if mas[0][0] == sign and mas[1][1] == sign and mas[2][2] == sign:
-            return sign
-        if mas[0][2] == sign and mas[1][1] == sign and mas[2][0] == sign:
-            return sign
-        if zeroes == 0:
-            return 'Ничья'
+        for ROW in range(1,5):
+            if mas[COL-1][ROW] == sign and mas[COL][ROW] == sign and mas[COL+1][ROW] == sign:
+                return sign
+    if zeroes == 0:
+        return 'Ничья'
     return False
 
 
@@ -88,7 +86,7 @@ while True:
                     pygame.draw.line(screen, white, (x + 5, y + 5), (x + size_block - 5, y + size_block - 5), 3)
                     pygame.draw.line(screen, white, (x + size_block - 5, y + 5), (x + 5, y + size_block - 5), 3)
                 elif color == green:
-                    pygame.draw.circle(screen, white, (x + size_block // 2, y + size_block // 2), size_block // 2 - 3,3)
+                    pygame.draw.circle(screen, white, (x + size_block // 2, y + size_block // 2), size_block // 2 - 3, 3)
     if game_over:
         screen.fill(black)
         font = pygame.font.SysFont('times new roman', 30)
